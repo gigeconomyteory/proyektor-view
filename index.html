@@ -7,29 +7,11 @@
     <style>
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: black; display: flex; justify-content: center; align-items: center; }
         
-        /* Panel Kontrol Vertikal */
-        #controls {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column; /* Vertikal */
-            gap: 8px;
-        }
-        
-        input { padding: 8px; width: 180px; border: none; border-radius: 3px; }
-        .btn-group { display: flex; gap: 5px; }
-        button { padding: 8px 12px; cursor: pointer; border: none; border-radius: 3px; background: #eee; flex: 1; }
-
-        /* Tombol untuk memunculkan kembali */
+        /* Tombol untuk memunculkan kembali (di pojok kiri bawah) */
         #showBtn {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            bottom: 20px;
+            left: 20px;
             z-index: 5;
             padding: 8px 12px;
             background: rgba(0, 0, 0, 0.5);
@@ -38,6 +20,25 @@
             cursor: pointer;
             display: none;
         }
+
+        /* Panel Kontrol (Diputar 90 derajat) */
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row; 
+            gap: 8px;
+            transform: rotate(-90deg); /* Diputar agar berdiri */
+            transform-origin: bottom left; /* Poros putaran di kiri bawah */
+        }
+        
+        input { padding: 8px; width: 180px; border: none; border-radius: 3px; }
+        button { padding: 8px 12px; cursor: pointer; border: none; border-radius: 3px; background: #eee; }
 
         #videoPlayer {
             width: 100vh;
@@ -54,11 +55,9 @@
 
     <div id="controls">
         <input type="text" id="urlInput" placeholder="Paste link YouTube...">
-        <div class="btn-group">
-            <button onclick="loadVideo()">Load</button>
-            <button onclick="rotateVideo(90)">↻</button>
-            <button onclick="hideControls()">✕</button>
-        </div>
+        <button onclick="loadVideo()">Load</button>
+        <button onclick="rotateVideo(90)">↻</button>
+        <button onclick="hideControls()">✕</button>
     </div>
 
     <iframe id="videoPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
