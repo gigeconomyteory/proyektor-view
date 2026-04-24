@@ -11,11 +11,25 @@
             display: flex; justify-content: center; align-items: center;
         }
         
-        /* Kontrol Input (Vertikal di Kiri) */
+        /* Tombol Toggle (Selalu ada di pojok) */
+        #toggleBtn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 20;
+            padding: 8px 12px;
+            cursor: pointer;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        /* Panel Kontrol */
         #controls {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 50px;
+            left: 10px;
             z-index: 10;
             background: rgba(0, 0, 0, 0.8);
             padding: 15px;
@@ -29,16 +43,17 @@
 
         /* Area Video */
         #videoPlayer {
-            width: 100vh; /* Mengikuti tinggi layar */
-            aspect-ratio: 9 / 16; /* Bentuk Portrait */
+            width: 100vh;
+            aspect-ratio: 9 / 16;
             border: none;
             display: block;
-            /* Transisi mulus saat diputar */
             transition: transform 0.3s ease;
         }
     </style>
 </head>
 <body>
+
+    <button id="toggleBtn" onclick="toggleControls()">Hide/Show Controls</button>
 
     <div id="controls">
         <input type="text" id="urlInput" placeholder="Paste link YouTube">
@@ -53,14 +68,21 @@
     <script>
         let currentRotation = 0;
 
+        function toggleControls() {
+            const controls = document.getElementById('controls');
+            if (controls.style.display === 'none') {
+                controls.style.display = 'flex';
+            } else {
+                controls.style.display = 'none';
+            }
+        }
+
         function loadVideo() {
             const url = document.getElementById('urlInput').value;
             const videoId = extractVideoID(url);
             if (videoId) {
                 const embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
                 document.getElementById('videoPlayer').src = embedUrl;
-                // Opsional: Sembunyikan kontrol jika ingin tampilan bersih
-                // document.getElementById('controls').style.display = 'none'; 
             } else {
                 alert("Link tidak valid!");
             }
