@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyektor Controller</title>
+    <title>Proyektor Portrait Controller</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: black; font-family: sans-serif; }
+        body, html { 
+            margin: 0; padding: 0; height: 100%; width: 100%; 
+            overflow: hidden; background-color: black; 
+            display: flex; justify-content: center; align-items: center;
+        }
         
         /* Kontrol Input */
         #controls {
@@ -19,13 +23,14 @@
             display: flex;
             gap: 10px;
         }
-        input { padding: 8px; width: 300px; }
+        input { padding: 8px; width: 250px; }
         button { padding: 8px 15px; cursor: pointer; }
 
-        /* Video Area */
+        /* Kunci Player ke 9:16 (Portrait) */
         #videoPlayer {
-            width: 100vw;
-            height: 100vh;
+            width: auto;
+            height: 100vh; /* Mengikuti tinggi layar */
+            aspect-ratio: 9 / 16; /* Memaksa bentuk Portrait */
             border: none;
             display: block;
         }
@@ -45,9 +50,9 @@
             const url = document.getElementById('urlInput').value;
             const videoId = extractVideoID(url);
             if (videoId) {
+                // Menggunakan embed URL standar
                 const embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
                 document.getElementById('videoPlayer').src = embedUrl;
-                // Sembunyikan kontrol setelah load
                 document.getElementById('controls').style.display = 'none';
             } else {
                 alert("Link tidak valid!");
@@ -55,7 +60,6 @@
         }
 
         function extractVideoID(url) {
-            // Regex untuk menangani berbagai format link YT (biasa & shorts)
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|shorts\/)([^#&?]*).*/;
             const match = url.match(regExp);
             return (match && match[2].length === 11) ? match[2] : null;
