@@ -7,23 +7,23 @@
     <style>
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: black; display: flex; justify-content: center; align-items: center; }
         
-        /* Panel Kontrol Satu Baris */
+        /* Panel Kontrol Vertikal */
         #controls {
             position: absolute;
             top: 10px;
             left: 10px;
             z-index: 10;
             background: rgba(0, 0, 0, 0.7);
-            padding: 5px 10px;
+            padding: 10px;
             border-radius: 5px;
             display: flex;
-            flex-direction: row; 
-            gap: 5px;
-            align-items: center;
+            flex-direction: column; /* Vertikal */
+            gap: 8px;
         }
         
-        input { padding: 5px; width: 200px; border: none; border-radius: 3px; }
-        button { padding: 5px 10px; cursor: pointer; border: none; border-radius: 3px; background: #eee; }
+        input { padding: 8px; width: 180px; border: none; border-radius: 3px; }
+        .btn-group { display: flex; gap: 5px; }
+        button { padding: 8px 12px; cursor: pointer; border: none; border-radius: 3px; background: #eee; flex: 1; }
 
         /* Tombol untuk memunculkan kembali */
         #showBtn {
@@ -31,7 +31,7 @@
             top: 10px;
             left: 10px;
             z-index: 5;
-            padding: 5px 10px;
+            padding: 8px 12px;
             background: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
@@ -53,10 +53,12 @@
     <button id="showBtn" onclick="showControls()">⚙️</button>
 
     <div id="controls">
-        <input type="text" id="urlInput" placeholder="URL YouTube...">
-        <button onclick="loadVideo()">→</button>
-        <button onclick="rotateVideo(90)">↻</button>
-        <button onclick="hideControls()">✕</button>
+        <input type="text" id="urlInput" placeholder="Paste link YouTube...">
+        <div class="btn-group">
+            <button onclick="loadVideo()">Load</button>
+            <button onclick="rotateVideo(90)">↻</button>
+            <button onclick="hideControls()">✕</button>
+        </div>
     </div>
 
     <iframe id="videoPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
