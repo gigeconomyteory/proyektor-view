@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portrait View</title>
+    <style>
+        /* Menghilangkan margin dan scrollbar agar benar-benar full layar */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        /* Mengatur iframe agar memenuhi seluruh viewport */
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe 
+        src="https://www.youtube.com/embed/videoseries?list=YOUR_PLAYLIST_ID&autoplay=1" 
+        allow="autoplay; encrypted-media; fullscreen" 
+        allowfullscreen>
+    </iframe>
+
+</body>
+</html>
