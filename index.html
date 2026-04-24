@@ -5,43 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyektor Controller</title>
     <style>
-        body, html { 
-            margin: 0; padding: 0; height: 100%; width: 100%; 
-            overflow: hidden; background-color: black; 
-            display: flex; justify-content: center; align-items: center;
-        }
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: black; display: flex; justify-content: center; align-items: center; }
         
-        /* Tombol Toggle (Selalu ada di pojok) */
-        #toggleBtn {
+        /* Panel Kontrol Satu Baris */
+        #controls {
             position: absolute;
             top: 10px;
             left: 10px;
-            z-index: 20;
-            padding: 8px 12px;
-            cursor: pointer;
-            background: #333;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row; 
+            gap: 5px;
+            align-items: center;
+        }
+        
+        input { padding: 5px; width: 200px; border: none; border-radius: 3px; }
+        button { padding: 5px 10px; cursor: pointer; border: none; border-radius: 3px; background: #eee; }
+
+        /* Tombol untuk memunculkan kembali */
+        #showBtn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 5;
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
-            border-radius: 4px;
+            cursor: pointer;
+            display: none;
         }
 
-        /* Panel Kontrol */
-        #controls {
-            position: absolute;
-            top: 50px;
-            left: 10px;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column; 
-            gap: 10px;
-        }
-        input { padding: 10px; width: 220px; }
-        button { padding: 10px; cursor: pointer; }
-
-        /* Area Video */
         #videoPlayer {
             width: 100vh;
             aspect-ratio: 9 / 16;
@@ -53,14 +50,13 @@
 </head>
 <body>
 
-    <button id="toggleBtn" onclick="toggleControls()">Hide/Show Controls</button>
+    <button id="showBtn" onclick="showControls()">⚙️</button>
 
     <div id="controls">
-        <input type="text" id="urlInput" placeholder="Paste link YouTube">
-        <button onclick="loadVideo()">Load Video</button>
-        <hr style="width:100%; border: 0.5px solid #555;">
-        <button onclick="rotateVideo(90)">Rotate ↻ 90°</button>
-        <button onclick="rotateVideo(-90)">Rotate ↺ 90°</button>
+        <input type="text" id="urlInput" placeholder="URL YouTube...">
+        <button onclick="loadVideo()">→</button>
+        <button onclick="rotateVideo(90)">↻</button>
+        <button onclick="hideControls()">✕</button>
     </div>
 
     <iframe id="videoPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
@@ -68,21 +64,21 @@
     <script>
         let currentRotation = 0;
 
-        function toggleControls() {
-            const controls = document.getElementById('controls');
-            if (controls.style.display === 'none') {
-                controls.style.display = 'flex';
-            } else {
-                controls.style.display = 'none';
-            }
+        function hideControls() {
+            document.getElementById('controls').style.display = 'none';
+            document.getElementById('showBtn').style.display = 'block';
+        }
+
+        function showControls() {
+            document.getElementById('controls').style.display = 'flex';
+            document.getElementById('showBtn').style.display = 'none';
         }
 
         function loadVideo() {
             const url = document.getElementById('urlInput').value;
             const videoId = extractVideoID(url);
             if (videoId) {
-                const embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
-                document.getElementById('videoPlayer').src = embedUrl;
+                document.getElementById('videoPlayer').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
             } else {
                 alert("Link tidak valid!");
             }
