@@ -59,7 +59,7 @@
         <button onclick="hideControls()">✕</button>
     </div>
 
-    <iframe id="videoPlayer" src="" allow="autoplay; encrypted-media"></iframe>
+    <iframe id="videoPlayer" src="" allow="autoplay; encrypted-media; fullscreen; orientation-lock 'src'" allowfullscreen></iframe>
 
     <script>
         let currentRotation = 0;
@@ -89,7 +89,6 @@
             document.getElementById('videoPlayer').style.transform = `rotate(${currentRotation}deg)`;
         }
 
-        // Fungsi Fullscreen baru
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen();
