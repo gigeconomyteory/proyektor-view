@@ -7,7 +7,6 @@
     <style>
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: black; display: flex; justify-content: center; align-items: center; }
         
-        /* Tombol untuk memunculkan kembali (digeser ke 50px) */
         #showBtn {
             position: absolute;
             bottom: 50px;
@@ -21,7 +20,6 @@
             display: none;
         }
 
-        /* Panel Kontrol (digeser ke 50px dan diputar) */
         #controls {
             position: absolute;
             bottom: 50px;
@@ -57,10 +55,11 @@
         <input type="text" id="urlInput" placeholder="Paste link YouTube...">
         <button onclick="loadVideo()">Load</button>
         <button onclick="rotateVideo(90)">↻</button>
+        <button onclick="toggleFullscreen()">⛶</button>
         <button onclick="hideControls()">✕</button>
     </div>
 
-    <iframe id="videoPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+    <iframe id="videoPlayer" src="" allow="autoplay; encrypted-media"></iframe>
 
     <script>
         let currentRotation = 0;
@@ -88,6 +87,17 @@
         function rotateVideo(deg) {
             currentRotation += deg;
             document.getElementById('videoPlayer').style.transform = `rotate(${currentRotation}deg)`;
+        }
+
+        // Fungsi Fullscreen baru
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
         }
 
         function extractVideoID(url) {
