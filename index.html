@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyektor Forced Portrait</title>
+    <title>Proyektor Controller</title>
     <style>
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
@@ -11,7 +11,7 @@
             display: flex; justify-content: center; align-items: center;
         }
         
-        /* Kontrol Input (Tetap tegak agar mudah dipakai) */
+        /* Kontrol Input (Vertikal di Kiri) */
         #controls {
             position: absolute;
             top: 20px;
@@ -21,22 +21,20 @@
             padding: 15px;
             border-radius: 8px;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; 
             gap: 10px;
         }
         input { padding: 10px; width: 220px; }
         button { padding: 10px; cursor: pointer; }
 
-        /* Area Video yang diputar 90 derajat */
+        /* Area Video */
         #videoPlayer {
-            /* Memutar 90 derajat agar menjadi portrait */
-            transform: rotate(90deg); 
-            
-            /* Mengatur ukuran agar pas setelah diputar */
-            width: 100vh;
-            height: 100vw;
+            width: 100vh; /* Mengikuti tinggi layar */
+            aspect-ratio: 9 / 16; /* Bentuk Portrait */
             border: none;
             display: block;
+            /* Transisi mulus saat diputar */
+            transition: transform 0.3s ease;
         }
     </style>
 </head>
@@ -45,21 +43,32 @@
     <div id="controls">
         <input type="text" id="urlInput" placeholder="Paste link YouTube">
         <button onclick="loadVideo()">Load Video</button>
+        <hr style="width:100%; border: 0.5px solid #555;">
+        <button onclick="rotateVideo(90)">Rotate ↻ 90°</button>
+        <button onclick="rotateVideo(-90)">Rotate ↺ 90°</button>
     </div>
 
     <iframe id="videoPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
 
     <script>
+        let currentRotation = 0;
+
         function loadVideo() {
             const url = document.getElementById('urlInput').value;
             const videoId = extractVideoID(url);
             if (videoId) {
                 const embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
                 document.getElementById('videoPlayer').src = embedUrl;
-                document.getElementById('controls').style.display = 'none';
+                // Opsional: Sembunyikan kontrol jika ingin tampilan bersih
+                // document.getElementById('controls').style.display = 'none'; 
             } else {
                 alert("Link tidak valid!");
             }
+        }
+
+        function rotateVideo(deg) {
+            currentRotation += deg;
+            document.getElementById('videoPlayer').style.transform = `rotate(${currentRotation}deg)`;
         }
 
         function extractVideoID(url) {
