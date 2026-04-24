@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyektor Portrait Controller</title>
+    <title>Proyektor Forced Portrait</title>
     <style>
         body, html { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
@@ -11,26 +11,30 @@
             display: flex; justify-content: center; align-items: center;
         }
         
-        /* Kontrol Input */
+        /* Kontrol Input (Tetap tegak agar mudah dipakai) */
         #controls {
             position: absolute;
             top: 20px;
             left: 20px;
             z-index: 10;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             padding: 15px;
             border-radius: 8px;
             display: flex;
+            flex-direction: column;
             gap: 10px;
         }
-        input { padding: 8px; width: 250px; }
-        button { padding: 8px 15px; cursor: pointer; }
+        input { padding: 10px; width: 220px; }
+        button { padding: 10px; cursor: pointer; }
 
-        /* Kunci Player ke 9:16 (Portrait) */
+        /* Area Video yang diputar 90 derajat */
         #videoPlayer {
-            width: auto;
-            height: 100vh; /* Mengikuti tinggi layar */
-            aspect-ratio: 9 / 16; /* Memaksa bentuk Portrait */
+            /* Memutar 90 derajat agar menjadi portrait */
+            transform: rotate(90deg); 
+            
+            /* Mengatur ukuran agar pas setelah diputar */
+            width: 100vh;
+            height: 100vw;
             border: none;
             display: block;
         }
@@ -39,7 +43,7 @@
 <body>
 
     <div id="controls">
-        <input type="text" id="urlInput" placeholder="Paste link YouTube (Shorts/Normal)">
+        <input type="text" id="urlInput" placeholder="Paste link YouTube">
         <button onclick="loadVideo()">Load Video</button>
     </div>
 
@@ -50,7 +54,6 @@
             const url = document.getElementById('urlInput').value;
             const videoId = extractVideoID(url);
             if (videoId) {
-                // Menggunakan embed URL standar
                 const embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
                 document.getElementById('videoPlayer').src = embedUrl;
                 document.getElementById('controls').style.display = 'none';
