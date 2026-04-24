@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portrait View</title>
+    <title>Proyektor Controller</title>
     <style>
-        /* Menghilangkan margin dan scrollbar agar benar-benar full layar */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            background-color: black;
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: black; font-family: sans-serif; }
+        
+        /* Kontrol Input */
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            gap: 10px;
         }
+        input { padding: 8px; width: 300px; }
+        button { padding: 8px 15px; cursor: pointer; }
 
-        /* Mengatur iframe agar memenuhi seluruh viewport */
-        iframe {
+        /* Video Area */
+        #videoPlayer {
             width: 100vw;
             height: 100vh;
             border: none;
@@ -26,11 +33,33 @@
 </head>
 <body>
 
-    <iframe 
-        src="https://www.youtube.com/embed/videoseries?list=YOUR_PLAYLIST_ID&autoplay=1" 
-        allow="autoplay; encrypted-media; fullscreen" 
-        allowfullscreen>
-    </iframe>
+    <div id="controls">
+        <input type="text" id="urlInput" placeholder="Paste link YouTube (Shorts/Normal)">
+        <button onclick="loadVideo()">Load Video</button>
+    </div>
 
+    <iframe id="videoPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+
+    <script>
+        function loadVideo() {
+            const url = document.getElementById('urlInput').value;
+            const videoId = extractVideoID(url);
+            if (videoId) {
+                const embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+                document.getElementById('videoPlayer').src = embedUrl;
+                // Sembunyikan kontrol setelah load
+                document.getElementById('controls').style.display = 'none';
+            } else {
+                alert("Link tidak valid!");
+            }
+        }
+
+        function extractVideoID(url) {
+            // Regex untuk menangani berbagai format link YT (biasa & shorts)
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|shorts\/)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+    </script>
 </body>
 </html>
