@@ -7,11 +7,11 @@
     <style>
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: black; display: flex; justify-content: center; align-items: center; }
         
-        /* Tombol untuk memunculkan kembali (di pojok kiri bawah) */
+        /* Tombol untuk memunculkan kembali (digeser ke 50px) */
         #showBtn {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
+            bottom: 50px;
+            left: 50px;
             z-index: 5;
             padding: 8px 12px;
             background: rgba(0, 0, 0, 0.5);
@@ -21,11 +21,11 @@
             display: none;
         }
 
-        /* Panel Kontrol (Diputar 90 derajat) */
+        /* Panel Kontrol (digeser ke 50px dan diputar) */
         #controls {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
+            bottom: 50px;
+            left: 50px;
             z-index: 10;
             background: rgba(0, 0, 0, 0.7);
             padding: 10px;
@@ -33,8 +33,8 @@
             display: flex;
             flex-direction: row; 
             gap: 8px;
-            transform: rotate(-90deg); /* Diputar agar berdiri */
-            transform-origin: bottom left; /* Poros putaran di kiri bawah */
+            transform: rotate(-90deg);
+            transform-origin: bottom left;
         }
         
         input { padding: 8px; width: 180px; border: none; border-radius: 3px; }
